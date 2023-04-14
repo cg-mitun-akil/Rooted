@@ -9,7 +9,7 @@ const bcrypt = require('bcrypt');
 const userRouter = express.Router();
 const saltRounds = 10;
 
-userRouter.post("/signin", async (req, res) => {
+userRouter.post("/", async (req, res) => {
   const credentials = req.body.credentials;
   if (!credentials) {
     return res.status(400).json({ error: "credentials not found" });
@@ -21,7 +21,7 @@ userRouter.post("/signin", async (req, res) => {
   //FIND A USER FROM THE DATABASE
   const userSelectSql = `SELECT * FROM User WHERE username = ${mysql.escape(credentials.username)};`
   getConnection().query(userSelectSql, async(err, result) => {
-    if (err) throw err;
+    if (err) return res.status(400).json(err);
     const users = result;
     let user;
     if(users !== undefined && users.length > 0)
@@ -48,7 +48,7 @@ userRouter.post("/signin", async (req, res) => {
         VALUES (${mysql.escape(username)}, ${mysql.escape(firstname)}, ${mysql.escape(lastname)}, 
         ${mysql.escape(email)}, ${mysql.escape(passwordHash)}, ${mysql.escape(dateCreated)});`;
       getConnection().query(userInputSql, function (err, result) {
-        if (err) throw err;
+        if (err) return res.status(400).json(err);
         console.log("1 user inserted");
       });
     }
@@ -62,7 +62,7 @@ userRouter.post("/signin", async (req, res) => {
       return res.status(403).json({ error: "wrong password" });
     }
     const userForToken = {
-      name: user.username,
+      username: user.username,
       email: user.email
     };
     const loginToken = jwt.sign(userForToken, process.env.SECRET);
