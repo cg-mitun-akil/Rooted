@@ -3,10 +3,12 @@ require('dotenv').config();
 const app = require("./app.js");
 const {connectToDatabase} = require('./databaseConfig');
 const {createTables} = require('./schema.js');
+const {createTriggers} = require('./trigger.js');
 
 const server = http.createServer(app);
 connectToDatabase();
 createTables();
+createTriggers();
 
 const PORT = process.env.PORT || 8080;
 
