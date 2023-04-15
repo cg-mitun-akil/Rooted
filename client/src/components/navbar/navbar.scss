@@ -1,0 +1,104 @@
+
+//@import "../../app.scss";
+
+.navbar {
+    width: 100%;
+    color: white;
+    font-size: 14px;
+    position: relative;
+    top: 0;
+    z-index: 99;
+    background: linear-gradient(to top, rgba(94, 2, 2, 0.5) 30%, rgba(109, 3, 3, 0.4) 10%);
+
+    &.scrolled {
+        background-color: black;
+        transition: ease-in-out;
+        position:fixed;
+    }
+
+    .container {
+        padding: 0px 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 70px;
+
+        .left {
+            display: flex;
+            align-items: center;
+
+            img {
+                height: 25px;
+                margin-right: 40px;
+
+                //@include mobile {
+                //    display: none;
+                //}
+            }
+
+            span {
+                margin-right: 20px;
+                cursor: pointer;
+
+                //@include tablet {
+                //    display: none;
+                //}
+
+                //&.navbarmainLinks {
+                //    @include tablet {
+                //        display: block;
+                //    }
+                //}
+            }
+
+            select {
+                margin-right: 20px;
+                background-color: transparent;
+                border: 1px solid rgb(151, 150, 150);
+                border-radius: 5px;
+                height: 26px;
+                font-size: 14px;
+                color: white
+            }
+        }
+
+        .right {
+            display: flex;
+            align-items: center;
+
+            .icon {
+                margin: 0px 15px;
+                cursor: pointer;
+            }
+
+            img {
+                width: 30px;
+                height: 30px;
+                border-radius: 5px;
+                object-fit: cover;
+                cursor: pointer;
+            }
+
+            .profile {
+                .options {
+                    display: none;
+                    background-color: var(--main-color);
+                    border-radius: 5px;
+                }
+
+                span {
+                    padding: 10px;
+                    cursor: pointer;
+                }
+
+                &:hover {
+                    .options {
+                        display: flex;
+                        flex-direction: column;
+                        position: absolute;
+                    }
+                }
+            }
+        }
+    }
+}
