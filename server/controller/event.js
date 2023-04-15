@@ -6,7 +6,7 @@ const eventRouter = express.Router();
 
 //format for the api endpoint
 // /api/v1/event/multiple?eventType=eventtypehere&ratingMin=ratingMinHere&ratingMax=ratingMaxHere&nativeLocation=nativeLocationHere&nativeLanguage=nativeLanguageHere
-//you can leave out some of the query parameters if necessary. to call without any query parameters
+//you can leave out some of the query parameters if  necessary. to call without any query parameters
 // /api/v1/event/multiple OR /api/v1/event/multiple?
 
 eventRouter.get('/multiple/', (req, res) => {
