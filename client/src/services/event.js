@@ -1,0 +1,67 @@
+import axios from 'axios';
+import { getToken } from './user';
+const baseUrl = process.env.SERVER_URL + '/api/v1/event/';
+
+export const getEvents = async({eventType, ratingMin, ratingMax, nativeLocation, nativeLanguage, searchTerm}) => {
+  let endpoint = baseUrl + 'multiple?';
+  
+  if (eventType) {
+    endpoint += `eventType=${eventType}&`;
+  }
+  if (ratingMin) {
+    endpoint += `ratingMin=${ratingMin}&`;
+  }
+  if (ratingMax) {
+    endpoint += `ratingMax=${ratingMax}&`;
+  }
+  if (nativeLocation) {
+    endpoint += `nativeLocation=${nativeLocation}&`;
+  }
+  if (nativeLanguage) {
+    endpoint += `nativeLanguage=${nativeLanguage}&`;
+  }
+  if (searchTerm) {
+    endpoint += `searchTerm=${searchTerm}&`;
+  }
+  endpoint = endpoint.slice(0, -1);
+  
+  const response = await axios.get(endpoint);
+  return response.data;
+};
+
+export const getEventInfo = async (eventid) => {
+  const response = await axios.get(`${baseUrl}single/${eventid}`);
+  return response.data;
+};
+
+export const addEvent = async ({ title, eventType, nativeLocation, nativeLanguage, 
+  description, contactNumber, contactCountryCode, contactEmail }) => {
+  const newEvent = { title, eventType, nativeLocation, nativeLanguage, description,
+    contactNumber, contactCountryCode, contactEmail };
+  const config = {
+    headers: { Authorization: getToken() },
+  }
+  const response = await axios.post(baseUrl, {newEvent}, config);
+  return response.data;
+};
+
+//in this function, make sure that the unedited event fields are also present, otherwise they
+//may be overwritten by NULL values
+export const editEvent = async ({ eventid, title, eventType, nativeLocation, nativeLanguage, 
+  description, contactNumber, contactCountryCode, contactEmail }) => {
+  const newEvent = { eventid, title, eventType, nativeLocation, nativeLanguage, description,
+    contactNumber, contactCountryCode, contactEmail };
+  const config = {
+    headers: { Authorization: getToken() },
+  }
+  const response = await axios.patch(baseUrl, {newEvent}, config);
+  return response.data;
+};
+
+export const deleteEvent = async (eventid) => {
+  const config = {
+    headers: { Authorization: getToken() },
+  }
+  const response = await axios.delete(baseUrl, {eventid}, config);
+  return response.data;
+};

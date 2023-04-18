@@ -55,6 +55,13 @@ eventRouter.get('/multiple/', (req, res) => {
     if(queryLength > 0)
       eventSelectSql += ` AND`;
   }
+  if(req.query.searchTerm)
+  {
+    eventSelectSql += ` e.title LIKE ${mysql.escape('%'+req.query.nativeLanguage+'%')}`; 
+    queryLength --;
+    if(queryLength > 0)
+      eventSelectSql += ` AND`;
+  }
   eventSelectSql +=  ` GROUP BY e.eventid;`;
   getConnection().query(eventSelectSql, (err, result) => {
     if (err) return res.status(400).json(err);;
@@ -106,7 +113,6 @@ eventRouter.get('/single/:eventid', (req, res) => {
 });
 
 eventRouter.post('/', (req, res) => {
-  console.log('is it?', req.isAuthenticated);
   if(!req.isAuthenticated)
     return res.status(401).json({ error: 'User not logged in.' });
   const username = req.user.username;
@@ -139,7 +145,7 @@ eventRouter.patch('/', (req, res) => {
     return res.status(400).json({ error: 'Event details not available.' });
   const { eventid, title, eventType, nativeLocation, nativeLanguage, 
     description, contactNumber, contactCountryCode, contactEmail } = req.body.newEvent;
-  if(!title || !eventType || !contactNumber || !contactEmail)
+  if(!title || !eventType || !contactNumber || !contactEmail || !eventid)
   {
     return res.status(400).json({ error: 'Some event details not available.' });
   }
