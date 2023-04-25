@@ -18,7 +18,6 @@ const getTokenFrom = request => {
 }
 
 const tokenAuthenticator = async (request, response, next) => {
-  console.log('tolken authentication');
   const token = getTokenFrom(request);
   if(token === null)
     return next();
