@@ -36,7 +36,12 @@ reviewRouter.post('/', (req, res) => {
     if (error) return res.status(400).json(error);
 
     if (results.length > 0) {
-      res.status(400).send('User has already made a review for this event');
+      getConnection().query('UPDATE Review SET stars = ?, comment = ? WHERE eventid = ? AND username = ?;',
+        [stars, comment, eventid, username], (err, result) => {
+        if (err) return res.status(400).json(err);
+
+        res.status(201).send('Review updated successfully!');
+      });
     } else {
       // Insert the review
       const review = { username, eventid, stars, comment };
