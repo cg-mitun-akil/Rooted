@@ -9,9 +9,23 @@ import {
   Routes,
   Route,
   Link,
+  Navigate,
 } from "react-router-dom";
+import { setToken } from "./services/user";
+import { useEffect } from 'react';
 
 function App() {
+  useEffect(()=>{
+    const token = localStorage.getItem("rooted-token");
+    if (!token)
+    {
+      <Navigate to="/login"/>
+    }
+    else{
+      setToken(token);
+      <Navigate to="/home"/>
+    }
+  }, [] );
   return (
     <BrowserRouter>
       <Routes>
