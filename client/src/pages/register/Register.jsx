@@ -35,7 +35,7 @@ export default function Register() {
             className="logo"
             src={logo}
             alt=""
-          />
+          />d
         </div>
       </div>
       <div className="container">
