@@ -6,6 +6,7 @@ import axios from "axios";
 import logo from "./logo.png"
 import { Link } from "react-router-dom";
 import { signUp } from "../../services/user";
+import { Grid } from "@mui/material";
 
 export default function Register() {
     const [email, setEmail] = useState("");
@@ -72,15 +73,28 @@ export default function Register() {
           Already a member? <u>Click here!</u>
         </p></Link>
        <form className="input">
+       <Grid container spacing={2}>
+        <Grid item xs={8} >
             <input type="email" placeholder="Email ID" onChange={(event)=> setEmail(event.target.value)} /> 
+        </Grid>
+        <Grid item xs={8}>
             <input type="username" placeholder="Username" onChange={(event)=> setUsername(event.target.value)}  /> 
+            </Grid>
+        <Grid item xs={8}>
             <input type="name" placeholder="First Name" onChange={(event)=> setFirstName(event.target.value)}  /> 
+            </Grid>
+        <Grid item xs={8}>
             <input type="name" placeholder="Last Name" onChange={(event)=> setLastName(event.target.value)}  />
+            </Grid>
+        <Grid item xs={8}>
             <input type="password" placeholder="Password" onChange={(event)=> setPassword(event.target.value)}  />
-        </form>
+        </Grid>
+        </Grid >
         <button className="registerButton" onClick={handleFinish}>
             Start
         </button>
+        </form>
+        
       </div>
     </div>
   );

@@ -39,7 +39,9 @@ const Navbar = (props) => {
             {/*<Link to="/movies" className="link">
                 <span className="navbarmainLinks">Movies</span>
             {/*</Link>*/}
-            <span>New Event</span>
+            <Link to="/addevent" className="link">
+              <span>New Event</span>
+            </Link>
             <select
                       name="Event Type"
                       id="genre"

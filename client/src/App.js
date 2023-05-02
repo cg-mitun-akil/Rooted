@@ -3,6 +3,7 @@ import Login from "./pages/login/Login";
 import Register from './pages/register/Register';
 import Home from './pages/home/Home';
 import Event from './pages/event/Event';
+import Addevent from './pages/addevent/Addevent';
 import { createRoot } from "react-dom/client";
 import {
   BrowserRouter,
@@ -33,6 +34,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="event" element={<Event />} />
+        <Route path="addevent" element={<Addevent/> } />
       </Routes>
     </BrowserRouter>
   );
