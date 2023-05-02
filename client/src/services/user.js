@@ -13,16 +13,24 @@ export const getToken = () => {
 
 export const login = async(username, password) => {
   const credentials = {username, password};
-  const response = await axios.post(baseUrl, {credentials});
-  setToken(response.data.token);
-  return response.data;
+  try{
+    const response = await axios.post(baseUrl, {credentials});
+    setToken(response.data.token);
+    return response.data;
+  }catch(e){
+    throw new Error(e);
+  }
 };
 
 export const signIn = async(username, email, firstname, lastname, password) => {
   const credentials = {username, email, firstname, lastname, password};
-  const response = await axios.post(baseUrl, {credentials});
-  setToken(response.data.token);
-  return response.data;
+  try{
+    const response = await axios.post(baseUrl, {credentials});
+    setToken(response.data.token);
+    return response.data;
+  }catch(e){
+    throw new Error(e);
+  }
 };
 
 export const logout = () => {

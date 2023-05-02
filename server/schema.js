@@ -41,6 +41,7 @@ const pictureSchema = `
 CREATE TABLE IF NOT EXISTS Picture(
 	eventid INT NOT NULL, 
 	url VARCHAR(255) NOT NULL,
+  filename VARCHAR(255) NOT NULL,
   PRIMARY KEY (eventid, url),
   FOREIGN KEY (eventid) REFERENCES Event(eventid) ON DELETE CASCADE
 );

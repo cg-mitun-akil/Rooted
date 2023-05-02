@@ -57,7 +57,7 @@ eventRouter.get('/multiple/', (req, res) => {
   }
   if(req.query.searchTerm)
   {
-    eventSelectSql += ` e.title LIKE ${mysql.escape('%'+req.query.nativeLanguage+'%')}`; 
+    eventSelectSql += `( e.title LIKE ${mysql.escape('%'+req.query.searchTerm+'%')} OR e.description LIKE ${mysql.escape('%'+req.query.searchTerm+'%')} ) `; 
     queryLength --;
     if(queryLength > 0)
       eventSelectSql += ` AND`;
