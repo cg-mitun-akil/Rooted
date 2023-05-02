@@ -6,7 +6,9 @@
     background-size: cover;
     position: relative;
     justify-content: center;
-
+    .logo {
+        height: 45px;
+    }
     .top {
         .wrapper {
             padding: 20px 50px;

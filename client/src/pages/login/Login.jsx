@@ -29,12 +29,15 @@ export default function Login() {
   return (
     <div className="login">
       <div className="top">
-        <div className="wrapper">
+      <Link to="../" className="Link">
           <img
             className="logo"
             src={logo}
             alt=""
           />
+        </Link>
+        <div className="wrapper">
+        
         </div>
       </div>
       <div className="container">

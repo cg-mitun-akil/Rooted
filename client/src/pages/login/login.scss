@@ -5,17 +5,24 @@
     background-size: cover;
     position: relative;
 
+    .logo {
+        height: 45px;
+    }
+
     .top {
         .wrapper {
             padding: 20px 50px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-
+            
+            .Link{
+                padding: 0px;
             .logo {
                 height: 45px;
                 margin-top: 90px;
             }
+        }
 
             .title{
                 align-items: left;

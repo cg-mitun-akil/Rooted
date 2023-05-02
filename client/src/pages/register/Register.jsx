@@ -56,12 +56,13 @@ export default function Register() {
   return (
     <div className="register">
       <div className="top">
-        <div className="wrapper">
+      <Link to="../" className="Link">
           <img
             className="logo"
             src={logo}
             alt=""
-          />d
+          /></Link>
+        <div className="wrapper">
         </div>
       </div>
       <div className="container">
@@ -74,19 +75,19 @@ export default function Register() {
         </p></Link>
        <form className="input">
        <Grid container spacing={2}>
-        <Grid item xs={8} >
+        <Grid item xs={9} >
             <input type="email" placeholder="Email ID" onChange={(event)=> setEmail(event.target.value)} /> 
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={9}>
             <input type="username" placeholder="Username" onChange={(event)=> setUsername(event.target.value)}  /> 
             </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={9}>
             <input type="name" placeholder="First Name" onChange={(event)=> setFirstName(event.target.value)}  /> 
             </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={9}>
             <input type="name" placeholder="Last Name" onChange={(event)=> setLastName(event.target.value)}  />
             </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={9}>
             <input type="password" placeholder="Password" onChange={(event)=> setPassword(event.target.value)}  />
         </Grid>
         </Grid >
