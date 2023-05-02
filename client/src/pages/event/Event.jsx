@@ -13,6 +13,8 @@ import Calendar from "../../components/calendar/Calendar";
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
 import { Link } from "react-router-dom";
+import Commentbox from "../../components/commentbox/Commentbox";
+import { Grid } from "@mui/material";
 
 const Event = () => {
   const [slideNumber1, setSlideNumber1] = useState(0);
@@ -94,11 +96,66 @@ const Event = () => {
   const dates = [21,23];
 
   const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
+
+  const comments = [
+    {
+      author: "John",
+      text: "Great post, thanks for sharing!"
+    },
+    {
+      author: "Jane",
+      text: "I disagree with your points, but appreciate the discussion."
+    },
+    {
+      author: "Bob",
+      text: "This was very helpful, I learned a lot from reading this!"
+    },
+    {
+      author: "Alice",
+      text: "I have a question about one of the points you made, can you clarify?"
+    },
+    {
+      author: "Mike",
+      text: "I love this topic, can you recommend any additional resources on it?"
+    },
+    {
+      author: "Mike",
+      text: "I love this topic, can you recommend any additional resources on it?"
+    },
+    {
+      author: "Mike",
+      text: "I love this topic, can you recommend any additional resources on it?"
+    },
+    {
+      author: "Jane",
+      text: "I disagree with your points, but appreciate the discussion."
+    },
+    {
+      author: "Bob",
+      text: "This was very helpful, I learned a lot from reading this!"
+    },
+    {
+      author: "Alice",
+      text: "I have a question about one of the points you made, can you clarify?"
+    },
+    {
+      author: "Mike",
+      text: "I love this topic, can you recommend any additional resources on it?"
+    },
+    {
+      author: "Mike",
+      text: "I love this topic, can you recommend any additional resources on it?"
+    }
+  ];
+  
 
   const handleClick = () => {
-    const input = prompt('Enter a number:');
+    const input = prompt('Rate us:');
+    const comment = prompt('Comment');
     if (input) {
       setRating(parseInt(input));
+      setComment(comment);
     }
   };
 
@@ -116,6 +173,19 @@ const Event = () => {
       <Link to="/" className="link">
         <img src={Logo} className="logo"/>
       </Link>
+      <h1 className="hotelTitle">Event Title</h1>
+      { isUser ? 
+          <button className="bookNow">Edit</button> : <div>
+          <button onClick={handleClick} className="bookNow">Rate Now</button>
+          <Rating
+            name="text-feedback"
+            value={rating}
+            readOnly
+            precision={0.1}
+            emptyIcon={<StarIcon style={{ opacity: 1 }} fontSize="inherit" />}
+          />
+          </div>
+        }
       <div className="hotelContainer">
         {open1 && (
           <div className="slider">
@@ -163,19 +233,7 @@ const Event = () => {
           </div>
         )}
         <div className="hotelWrapper">
-        { isUser ? 
-          <button className="bookNow">Edit</button> : <div>
-          <button onClick={handleClick} className="bookNow">Rate Now</button>
-          <Rating
-            name="text-feedback"
-            value={rating}
-            readOnly
-            precision={0.1}
-            emptyIcon={<StarIcon style={{ opacity: 1 }} fontSize="inherit" />}
-          />
-          </div>
-        }
-          <h1 className="hotelTitle">Event Title</h1>
+        
           <div className="hotelImages">
             {photos.map((photo, i) => (
               <div className="hotelImgWrapper" key={i}>
@@ -232,7 +290,14 @@ const Event = () => {
             </div>
           </div>
           <div> 
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={8.5}>
+                <Commentbox comments={comments} />
+              </Grid>
+              <Grid item xs={12} sm={3.5}>
                 <Calendar dates={dates} />
+              </Grid>
+            </Grid>
           </div>
         </div>
       </div>
