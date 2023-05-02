@@ -8,7 +8,7 @@
     position: relative;
     top: 0;
     z-index: 99;
-    background: linear-gradient(to top, rgba(94, 2, 2, 0.5) 30%, rgba(109, 3, 3, 0.4) 10%);
+    background: linear-gradient(to top, rgba(29, 0, 0, 0.801) 70%, rgba(19, 0, 0, 0.4) 100%);
 
     &.scrolled {
         background-color: black;
@@ -53,7 +53,7 @@
 
             select {
                 margin-right: 20px;
-                background-color: transparent;
+                background-color: rgba(109, 3, 3, 0.4);
                 border: 1px solid rgb(151, 150, 150);
                 border-radius: 5px;
                 height: 26px;

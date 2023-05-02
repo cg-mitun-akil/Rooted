@@ -1,17 +1,30 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./login.scss";
+import {login} from "./../../services/user";
 import logo from './logo.png';
+import { Navigate } from "react-router-dom";
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     //const { dispatch } = useContext( AuthContext );
-
-    const handleLogin = (e) => {
+    const navigate = useNavigate();
+    const [error_msg,setError_msg] = useState("");
+    const [iserror,setIserror] = useState(false);
+    const handleLogin = async(e) => {
         e.preventDefault();
         console.log(email);
         console.log(password);
-        //login({ email, password }, dispatch);
+        try{
+          const res = await login(email,password);
+          localStorage.setItem("rooted-token",res.token);
+          navigate("/");
+        }catch(err)
+        {
+          setError_msg(err.error);
+          setIserror(true);
+          console.log(error_msg);
+        }
     };
   return (
     <div className="login">

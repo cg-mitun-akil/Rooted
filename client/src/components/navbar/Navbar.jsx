@@ -39,8 +39,9 @@ const Navbar = (props) => {
             {/*<Link to="/movies" className="link">
                 <span className="navbarmainLinks">Movies</span>
             {/*</Link>*/}
-            <span>My Ratings</span>
-            <span>New Event</span>
+            <Link to="/addevent" className="link">
+              <span>New Event</span>
+            </Link>
             <select
                       name="Event Type"
                       id="genre"
@@ -95,6 +96,7 @@ const Navbar = (props) => {
                         props.setMaxRating(e.target.value)
                         console.log(e.target.value)
                       }}
+                      value={5}
                   >
                     <option value={0}>0.0</option>
                     <option value={1}>1.0</option>
