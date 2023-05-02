@@ -60,7 +60,7 @@ ServerDay.propTypes = {
 export default function Calendar( props ) {
   const requestAbortController = React.useRef(null);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [highlightedDays, setHighlightedDays] = React.useState(props.dates);
+  const [highlightedDays, setHighlightedDays] = React.useState(props.highlightedDays);
 
   const fetchHighlightedDays = (date) => {
     const controller = new AbortController();

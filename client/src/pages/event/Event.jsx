@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 import Commentbox from "../../components/commentbox/Commentbox";
 import { Grid } from "@mui/material";
 
-const Event = () => {
+const Event = (props) => {
   const [slideNumber1, setSlideNumber1] = useState(0);
   const [open1, setOpen1] = useState(false);
 
@@ -295,7 +295,7 @@ const Event = () => {
                 <Commentbox comments={comments} />
               </Grid>
               <Grid item xs={12} sm={3.5}>
-                <Calendar dates={dates} />
+                <Calendar highlightedDays={dates} />
               </Grid>
             </Grid>
           </div>
