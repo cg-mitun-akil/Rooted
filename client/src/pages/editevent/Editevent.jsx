@@ -19,7 +19,7 @@ import { useParams } from 'react-router-dom';
 import { getEventInfo } from "../../services/event";
 import { useNavigate } from "react-router-dom";
 import { editCurrEvent } from "../../services/event";
-import { addPicture, addVideo, deletePicture } from "../../services/picvid";
+import { addPicture, addVideo, deletePicture, deleteVideo } from "../../services/picvid";
 
 const Editevent = () => {
   const { id } = useParams();
@@ -121,7 +121,7 @@ const Editevent = () => {
     //upload video
   }
 
-  const [piclist,setPiclist] = useState();
+  const [piclist,setPiclist] = useState([]);
 
   const handleDeleteImages=async(event)=>{
     event.preventDefault(); 
@@ -135,17 +135,19 @@ const Editevent = () => {
       deletePicture(id,picid);
     })
   }
+  
+  const [vidlist,setVidlist] = useState([]);
 
   const handleDeleteVideos=async(event)=>{
     event.preventDefault(); 
     const current_event = async()=>{
         const res = await getEventInfo(id);
-        setPiclist(res.videos);
+        setVidlist(res.videos);
         console.log(res);
      } 
     current_event();
-    piclist.map( (picid) =>{
-      deletePicture(id,picid);
+    vidlist.map( (vidid) =>{
+      deleteVideo(id,vidid);
     })
   }
 
