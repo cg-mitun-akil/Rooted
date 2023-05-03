@@ -2,11 +2,10 @@ import { ArrowDropDown, Notifications, Search  } from '@mui/icons-material';
 import { Avatar } from '@mui/material';
 import { useContext, useState } from "react";
 import "./navbar.scss";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import logo from '../../images/logo.png';
 import Searchbox from "../searchbox/Searchbox"
-//import { AuthContext } from "../../authContext/AuthContext";
-//import { logout } from "../../authContext/AuthActions";
+import { logout } from '../../services/user';
 
 const Navbar = (props) => {
 
@@ -23,18 +22,49 @@ const Navbar = (props) => {
     console.log(props.eventName);
   };
 
+  const handleUsername = () => {
+    const storedUserName = localStorage.getItem('user-name');
+    if (storedUserName) {
+      props.setUserName(storedUserName);
+    }
+    console.log(props.userName);
+  };
+
+  const refreshEnv = () => {
+    props.setEventName("");
+    props.setEventType("");
+    props.setNativeLanguage("");
+    props.setMinRating(0);
+    props.setMaxRating(5);
+    props.setUserName("");
+    window.location.reload();
+  };
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    try{
+      logout();
+      Navigate("/login");
+    }catch(err){
+      navigate("/login");
+    }
+  };
+
+  
+
   return (
     <div className={isScrolled ?'navbar scrolled' : 'navbar' }>
       <div className="container">
         <div className="left">
-          <Link to="/" className="link">
-            <img src={logo} />   
+          <Link reloadDocument to="/" className="link"  >
+            <img src={logo}/>   
           </Link> 
-            <Link to="/" className="link">
-                <span>Homepage</span>
+            <Link reloadDocument to="/" className="link" >
+                <span >Homepage</span>
             </Link>
             {/*<Link to="/series" className="link">*/}
-                <span className="navbarmainLinks">My Events</span>
+                <span onClick = {handleUsername} className="navbarmainLinks">My Events</span>
             {/*</Link>*/}
             {/*<Link to="/movies" className="link">
                 <span className="navbarmainLinks">Movies</span>
@@ -117,7 +147,7 @@ const Navbar = (props) => {
             <div className="profile">
               <ArrowDropDown className="icons" />
               <div className="options">
-                <span onClick={() => {/*</div>dispatch(logout())*/}}>Logout</span>
+                <span onClick={handleLogout}>Logout</span>
               </div>
             </div>
             

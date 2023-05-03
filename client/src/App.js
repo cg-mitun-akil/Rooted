@@ -37,7 +37,7 @@ function App() {
         <Route path="register" element={<Register />} />
         <Route path="event/:id" element={<Event />} />
         <Route path="addevent" element={<Addevent/> } />
-        <Route path="editevent" element={<Editevent/> } />
+        <Route path="editevent/:id" element={<Editevent/> } />
       </Routes>
     </BrowserRouter>
   );

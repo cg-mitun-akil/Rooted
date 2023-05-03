@@ -14,14 +14,15 @@ export default function Home(){
     const [minRating,setMinRating] = useState(0);
     const [maxRating,setMaxRating] = useState(5);
     const [eventList,setEventList] = useState([]);
+    const [userName,setUserName] = useState("");
     useEffect( () =>{
         const events = async()=>{
-            const res = await getEvents({eventType , ratingMin : minRating , ratingMax: maxRating , nativeLanguage , searchTerm :  eventName});
+            const res = await getEvents({eventType , ratingMin : minRating , ratingMax: maxRating , nativeLanguage , searchTerm :  eventName , username : userName });
             setEventList(res.events);
             console.log(res);
         }
         events();
-    }, [ eventName , eventType , nativeLanguage , minRating , maxRating ] );
+    }, [ eventName , eventType , nativeLanguage , minRating , maxRating , userName ] );
     return(
         <div className="Home" >
             <Navbar 
@@ -35,10 +36,13 @@ export default function Home(){
                 setMaxRating = {setMaxRating}
                 nativeLanguage = {nativeLanguage}
                 setNativeLanguage = {setNativeLanguage}
+                userName = {userName}
+                setUserName = {setUserName}
             />
             {
                 eventList.map( (event)=>
                     <Card
+                        id ={event.eventid}
                         type={event.eventType}
                         desc = {event.description}
                         name={event.title}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import "./editevent.scss";
 import { Grid, TextField } from "@mui/material";
@@ -15,8 +15,13 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs, { Dayjs } from 'dayjs';
 import Box from '@mui/material/Box';
 import Autocomplete from '@mui/material/Autocomplete';
+import { useParams } from 'react-router-dom';
+import { getEventInfo } from "../../services/event";
+import { useNavigate } from "react-router-dom";
+import { editCurrEvent } from "../../services/event";
 
 const Editevent = () => {
+  const { id } = useParams();
   const dates = [21,23];
   const [title, setTitle] = useState("");
   const [eventType, setEventType] = useState("");
@@ -31,10 +36,60 @@ const Editevent = () => {
   const [videoURL,setVideoURL] = useState("");
   const [image,setImage] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+  
+  const [currentEvent,setCurrentEvent] = useState(null);
+
+  const [error_msg,setError_msg] = useState("");
+  const [iserror,setIserror] = useState(false);
+  
+  useEffect( () =>{
+      const current_event = async()=>{
+          const res = await getEventInfo(id);
+          setCurrentEvent(res);
+          console.log(res);
+      }
+      current_event();
+  }, [] );
+
+  useEffect( ()=>{
+    try{
+      setTitle(currentEvent.title);
+      setEventType(currentEvent.eventType);
+      setNativeLanguage(currentEvent.nativeLanguage);
+      setNativeLocation(currentEvent.nativeLocation);
+      setDescription(currentEvent.description);
+      setContactCountryCode(currentEvent.contactCountryCode);
+      setContactNumber(currentEvent.contactNumber);
+      setContactEmail(currentEvent.contactEmail);
+    }catch(err)
+    {
+      ;
+    }
+  }, [ currentEvent ])
 
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  //
+  //setNativeLocation
+  //setNativeLanguage
+  //setDescription
+  //setContactNumber
+  //setContactCountryCode
+  //setContactEmail
+
+  const navigate = useNavigate();
+  
+  const handleSubmit = async(event) => {
+    try{
+      const res = await editCurrEvent({title,eventType,nativeLocation,nativeLanguage,description,contactNumber,contactCountryCode,contactEmail});
+      navigate("/");
+    }catch(err)
+    {
+      setError_msg(err.error);
+      setIserror(true);
+      console.log(error_msg);
+    }
+    //editEvent = async ({ eventid, title, eventType, nativeLocation, nativeLanguage, 
+      //description, contactNumber, contactCountryCode, contactEmail })
     // TODO: handle form submission
   };
   const handleImageChange = (event) => {
@@ -89,9 +144,7 @@ const Editevent = () => {
         <Grid item xs={12}>
           <TextField fullWidth label="Event Type" value={eventType} onChange={(e) => setEventType(e.target.value)} />
         </Grid>
-        <Grid item xs={12}>
-          <TextField fullWidth label="Event Location" value={eventLocation} onChange={(e) => setEventLocation(e.target.value)} />
-        </Grid>
+        
         <Grid item xs={12}>
           <TextField fullWidth label="Native Location" value={nativeLocation} onChange={(e) => setNativeLocation(e.target.value)} />
         </Grid>

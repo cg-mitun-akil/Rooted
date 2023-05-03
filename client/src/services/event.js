@@ -52,7 +52,7 @@ export const addEvent = async ({ title, eventType, nativeLocation, nativeLanguag
 
 //in this function, make sure that the unedited event fields are also present, otherwise they
 //may be overwritten by NULL values
-export const editEvent = async ({ eventid, title, eventType, nativeLocation, nativeLanguage, 
+export const editCurrEvent = async ({ eventid, title, eventType, nativeLocation, nativeLanguage, 
   description, contactNumber, contactCountryCode, contactEmail }) => {
   const newEvent = { eventid, title, eventType, nativeLocation, nativeLanguage, description,
     contactNumber, contactCountryCode, contactEmail };

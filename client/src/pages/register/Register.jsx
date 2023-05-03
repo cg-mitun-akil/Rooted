@@ -39,6 +39,7 @@ export default function Register() {
         try{
           const res = await signUp(username, email, firstName, lastName, password);
           localStorage.setItem("rooted-token",res.token);
+          localStorage.setItem("user-name",username);
           console.log(res);
           navigate("/");
         }catch(err)

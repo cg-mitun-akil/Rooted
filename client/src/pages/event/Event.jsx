@@ -6,7 +6,7 @@ import {
   faCircleXmark,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from "../../images/logo.png"
 import Calendar from "../../components/calendar/Calendar";
 
@@ -16,16 +16,18 @@ import { Link } from "react-router-dom";
 import Commentbox from "../../components/commentbox/Commentbox";
 import { Grid } from "@mui/material";
 import { useParams } from 'react-router-dom';
+import { getEventInfo } from "../../services/event";
 
 const Event = (props) => {
   const { id } = useParams();
+  
   const [slideNumber1, setSlideNumber1] = useState(0);
   const [open1, setOpen1] = useState(false);
 
   const [slideNumber2, setSlideNumber2 ] = useState(0);
   const [open2, setOpen2] = useState(false);
-
   const [isUser,setIsUser] = useState(false);
+
 
   const photos = [
     {
@@ -174,7 +176,6 @@ const Event = (props) => {
     <div className="event">
       <Link to="/" className="link">
         <img src={Logo} className="logo"/>
-        <h1>{id}</h1>
       </Link>
       <h1 className="hotelTitle">Event Title</h1>
       { isUser ? 

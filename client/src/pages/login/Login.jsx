@@ -5,7 +5,7 @@ import {login} from "./../../services/user";
 import logo from './logo.png';
 import { Navigate } from "react-router-dom";
 export default function Login() {
-    const [email, setEmail] = useState("");
+    const [userName, serUsername] = useState("");
     const [password, setPassword] = useState("");
     //const { dispatch } = useContext( AuthContext );
     const navigate = useNavigate();
@@ -13,11 +13,12 @@ export default function Login() {
     const [iserror,setIserror] = useState(false);
     const handleLogin = async(e) => {
         e.preventDefault();
-        console.log(email);
+        console.log(userName);
         console.log(password);
         try{
-          const res = await login(email,password);
+          const res = await login(userName,password);
           localStorage.setItem("rooted-token",res.token);
+          localStorage.setItem("user-name",userName);
           navigate("/");
         }catch(err)
         {
@@ -43,7 +44,8 @@ export default function Login() {
       <div className="container">
         <form>
           <h1>Sign In</h1>
-                  <input type="email" placeholder="Email or phone number" onChange={(e) => setEmail(e.target.value)}/>
+                  <input type="userName" placeholder="userName or phone number" onChange={(e) => serUsername
+              (e.target.value)}/>
                   <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
                   <button className="loginButton" onClick={handleLogin}>Sign In</button>
           <span>

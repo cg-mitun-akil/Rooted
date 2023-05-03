@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 const Card = (props) => {
   return (
-  <Link to="/event" className="link">
+  <Link to={`/event/${props.id}`} className="link">
     <div class="projcard-container">
     <div class="projcard projcard-blue">
       <div class="projcard-innerbox">
@@ -16,8 +16,8 @@ const Card = (props) => {
           <div class="projcard-bar"></div>
           <div class="projcard-description">{props.desc}</div>
           <div class="projcard-tagbox">
-            <span class="projcard-tag">{props.language}</span>
-            <span class="projcard-tag">{props.type}</span>
+            <span class="projcard-tag"><b>{props.language}</b></span>
+            <span class="projcard-tag"><b>{props.type}</b></span>
             <span class="projcard-tag"><b>RMDB</b> {props.rating}</span>
           </div>
         </div>
