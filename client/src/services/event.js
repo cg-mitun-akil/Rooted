@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getToken } from './user';
 const baseUrl = process.env.REACT_APP_SERVER_URL + '/api/v1/event/';
 
-export const getEvents = async({eventType, ratingMin, ratingMax, nativeLocation, nativeLanguage, searchTerm}) => {
+export const getEvents = async({eventType, ratingMin, ratingMax, nativeLocation, nativeLanguage, searchTerm, username}) => {
   let endpoint = baseUrl + 'multiple?';
   
   if (eventType) {
@@ -23,6 +23,10 @@ export const getEvents = async({eventType, ratingMin, ratingMax, nativeLocation,
   if (searchTerm) {
     endpoint += `searchTerm=${searchTerm}&`;
   }
+  if (username) {
+    endpoint += `username=${username}&`;
+  }
+
   endpoint = endpoint.slice(0, -1);
   
   const response = await axios.get(endpoint);
