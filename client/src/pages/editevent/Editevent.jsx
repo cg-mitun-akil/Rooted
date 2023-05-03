@@ -22,6 +22,21 @@ import { editCurrEvent } from "../../services/event";
 import { addPicture, addVideo, deletePicture, deleteVideo } from "../../services/picvid";
 import { addBooking, deleteBooking, getBookings } from "../../services/booking";
 import { setDate } from "date-fns";
+import { deleteEvent } from "../../services/event";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleArrowLeft,
+  faCircleArrowRight,
+  faCircleXmark,
+  faLocationDot,
+  faSquarePhone,
+  faPhone,
+  faUser,
+  faEnvelope,
+  faPeopleRoof,
+  faSkull
+} from "@fortawesome/free-solid-svg-icons";
+
 
 const Editevent = () => {
   const { id } = useParams();
@@ -265,6 +280,20 @@ const Editevent = () => {
     //upload video
   }
 
+  const handleDelete = (event) =>{
+    event.preventDefault();
+    const answer = window.confirm('Are you sure?');
+      if (answer) {
+        try{ 
+          deleteEvent(id);
+          navigate("../")
+        }catch(err)
+        {
+          alert("Unauthorised access")
+        }
+      } 
+  }
+
   return (
   <div className="addevent">
     <Link to="../" className="Link">
@@ -340,6 +369,9 @@ const Editevent = () => {
         </Grid>
         <Grid item xs={12}>
             <button type="submit" onClick={handleSubmit}  >Save Changes</button>
+        </Grid>
+        <Grid item xs={12}>
+            <button type="submit" onClick={handleDelete}  >Delete Event</button>
         </Grid>
       </Grid>
       </div>

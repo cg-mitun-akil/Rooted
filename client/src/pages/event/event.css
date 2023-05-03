@@ -13,7 +13,7 @@
     height: 30px;
     margin: 14px;
     align-items: left;
-    position: fixed;
+    position: absolute;
     cursor: pointer;
     z-index: 999;
     background: transparent;
