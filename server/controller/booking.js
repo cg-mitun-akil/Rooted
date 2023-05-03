@@ -46,7 +46,7 @@ bookingRouter.post('/', (req, res) => {
 });
 
 // Endpoint for deleting a booking by event
-bookingRouter.delete('/', (req, res) => {
+bookingRouter.post('/del', (req, res) => {
   if(!req.isAuthenticated)
     return res.status(401).json({ error: 'User not logged in.' });
   const username = req.user.username;

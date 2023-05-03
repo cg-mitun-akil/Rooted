@@ -197,7 +197,7 @@ eventRouter.patch('/', (req, res) => {
   });
 });
 
-eventRouter.delete('/', (req, res) => {
+eventRouter.post('/del', (req, res) => {
   if(!req.isAuthenticated)
     return res.status(401).json({ error: 'User not logged in.' });
   const username = req.user.username;

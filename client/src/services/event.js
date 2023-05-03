@@ -68,6 +68,6 @@ export const deleteEvent = async (eventid) => {
   const config = {
     headers: { Authorization: getToken() },
   }
-  const response = await axios.delete(baseUrl, {eventid}, config);
+  const response = await axios.post(baseUrl+'del/', {eventid}, config);
   return response.data;
 };
