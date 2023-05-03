@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getToken } from './user';
-const baseUrl = process.env.SERVER_URL + '/api/v1/event/';
+const baseUrl = process.env.REACT_APP_SERVER_URL + '/api/v1/event/';
 
 export const getEvents = async({eventType, ratingMin, ratingMax, nativeLocation, nativeLanguage, searchTerm}) => {
   let endpoint = baseUrl + 'multiple?';
@@ -36,6 +36,7 @@ export const getEventInfo = async (eventid) => {
 
 export const addEvent = async ({ title, eventType, nativeLocation, nativeLanguage, 
   description, contactNumber, contactCountryCode, contactEmail }) => {
+    console.log(getToken());
   const newEvent = { title, eventType, nativeLocation, nativeLanguage, description,
     contactNumber, contactCountryCode, contactEmail };
   const config = {

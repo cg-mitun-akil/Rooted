@@ -8,6 +8,8 @@ import logo from "../../images/logo.png"
 import { Link } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Autocomplete from '@mui/material/Autocomplete';
+import { addEvent } from "../../services/event";
+import { useNavigate } from "react-router-dom";
 
 const Addevent = () => {
   const [title, setTitle] = useState("");
@@ -19,9 +21,25 @@ const Addevent = () => {
   const [contactNumber, setContactNumber] = useState("");
   const [contactCountryCode, setContactCountryCode] = useState("");
   const [contactEmail, setContactEmail] = useState("");
+  const [error_msg,setError_msg] = useState("");
+  const [iserror,setIserror] = useState(false);
 
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    try{
+      const res = await addEvent(title,eventType,nativeLocation,nativeLanguage,description,contactNumber,contactCountryCode,contactEmail);
+      localStorage.setItem("rooted-token",res.token);
+      navigate("/");
+    }catch(err)
+    {
+      setError_msg(err.error);
+      setIserror(true);
+      console.log(error_msg);
+    }
+    const res = 
+    console.log(res.error);
     // TODO: handle form submission
   };
 
@@ -46,9 +64,6 @@ const Addevent = () => {
         </Grid>
         <Grid item xs={12}>
           <TextField fullWidth label="Event Type" value={eventType} onChange={(e) => setEventType(e.target.value)} />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField fullWidth label="Event Location" value={eventLocation} onChange={(e) => setEventLocation(e.target.value)} />
         </Grid>
         <Grid item xs={12}>
           <TextField fullWidth label="Native Location" value={nativeLocation} onChange={(e) => setNativeLocation(e.target.value)} />
