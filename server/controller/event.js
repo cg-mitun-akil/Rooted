@@ -62,6 +62,13 @@ eventRouter.get('/multiple/', (req, res) => {
     if(queryLength > 0)
       eventSelectSql += ` AND`;
   }
+  if(req.query.username)
+  {
+    eventSelectSql += ` e.userCreated = ${mysql.escape(req.query.username)}`; 
+    queryLength --;
+    if(queryLength > 0)
+      eventSelectSql += ` AND`;
+  }
   eventSelectSql +=  ` GROUP BY e.eventid;`;
   getConnection().query(eventSelectSql, (err, result) => {
     if (err) return res.status(400).json(err);;
