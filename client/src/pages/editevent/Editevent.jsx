@@ -123,11 +123,13 @@ const Editevent = () => {
     event.preventDefault();
     try{
       const res = await editCurrEvent({ eventid:id,title,eventType,nativeLocation,nativeLanguage,description,contactNumber,contactCountryCode,contactEmail});
+      alert("Changes Saved");
     }catch(err)
     {
       setError_msg(err.error);
       setIserror(true);
       console.log(error_msg);
+      alert("Inconsistent Data or Unauthorised Access");
     }
     //editEvent = async ({ eventid, title, eventType, nativeLocation, nativeLanguage, 
       //description, contactNumber, contactCountryCode, contactEmail })
@@ -149,6 +151,7 @@ const Editevent = () => {
       setError_msg(err.error);
       setIserror(true);
       console.log(error_msg);
+      alert("File not support or Unauthorised access")
     }
     setImage(null);
     //upload video
@@ -167,6 +170,7 @@ const Editevent = () => {
     piclist.map( (picid) =>{
       deletePicture(id,picid);
     })
+    alert("Deleted All images");
   }
   
   const [vidlist,setVidlist] = useState([]);
@@ -181,6 +185,7 @@ const Editevent = () => {
     vidlist.map( (vidid) =>{
       deleteVideo(id,vidid);
     })
+    alert("Deleted All Videos");
   }
 
   useEffect(()=>{
@@ -217,7 +222,8 @@ const Editevent = () => {
     {
       setError_msg(err.error);
       setIserror(true);
-      console.log(error_msg);
+      //console.log(error_msg);
+      alert("Unauthorised access");
     }
     setVideoURL("");
     //upload video
@@ -228,10 +234,11 @@ const Editevent = () => {
     try{
       addBooking(id,`${selectedDate.year()}-${selectedDate.month()+1}-${selectedDate.date()+1}`);
       console.log("added");
-      setEventdates(oldArray => [...oldArray, `${selectedDate.year()}-${selectedDate.month()+1}-${selectedDate.date()}` ])
+      setEventdates(oldArray => [...oldArray, `${selectedDate.year()}-${selectedDate.month()+1}-${selectedDate.date()}` ]);
     }catch(err)
     {
       console.log(err);
+      alert("Unauthorised access");
     }
     //upload video
   }
@@ -253,7 +260,7 @@ const Editevent = () => {
       console.log(dates);
     }catch(err)
     {
-      ;
+      ;alert("Unauthorised access");
     }
     //upload video
   }

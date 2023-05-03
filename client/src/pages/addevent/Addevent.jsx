@@ -36,6 +36,7 @@ const Addevent = () => {
       setError_msg(err.error);
       setIserror(true);
       console.log(error_msg);
+      alert("Incomplete Data or UnAuthorised Access");
     }
     // TODO: handle form submission
   };

@@ -88,14 +88,12 @@
                 margin: 20px;
                 border-radius: 5px;
                 padding: 3 10px;
-
-               
-                
+                padding-left: 15px;   
             }
 
             button {
                 height: 40%;
-                width: 50%;
+                width: 35%;
                 background-color: red;
                 transition: background-color 0.1s ease-in-out;
                 position: relative;
@@ -103,6 +101,7 @@
                 font-size: 16px;
                 border-radius: 5px;
                 margin: 50px;
+                margin-left: 100px;
                 cursor: pointer;
             }
 

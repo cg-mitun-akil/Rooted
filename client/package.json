@@ -24,6 +24,7 @@
     "react-big-calendar": "^1.6.9",
     "react-datepicker": "^4.11.0",
     "react-dom": "^18.2.0",
+    "react-material-ui-carousel": "^3.4.2",
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
     "sass": "^1.61.0",

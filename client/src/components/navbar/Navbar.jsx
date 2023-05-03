@@ -10,6 +10,7 @@ import { logout } from '../../services/user';
 const Navbar = (props) => {
 
   const [isScrolled,setIsScrolled] = useState(false);
+  const isLogged = localStorage.getItem("user-name");
     //const { dispatch } = useContext(AuthContext);
 
   window.onscroll = () =>{
@@ -44,6 +45,8 @@ const Navbar = (props) => {
 
   const handleLogout = () => {
     try{
+      localStorage.setItem("rooted-token","");
+      localStorage.setItem("user-name","");
       logout();
       Navigate("/login");
     }catch(err){
@@ -146,9 +149,14 @@ const Navbar = (props) => {
             <Avatar className="icons" src="/broken-image.jpg" />
             <div className="profile">
               <ArrowDropDown className="icons" />
+              {( isLogged != "" )?
               <div className="options">
                 <span onClick={handleLogout}>Logout</span>
-              </div>
+              </div> :
+              <div className="options">
+              <span onClick={handleLogout}>Login</span>
+            </div>
+              }
             </div>
             
 

@@ -44,10 +44,11 @@ export default function Register() {
           navigate("/");
         }catch(err)
         {
-          console.log(err);
+          //console.log(err);
           setError_msg(err.error);
           setIserror(true);
-          console.log(error_msg);
+          //console.log(error_msg);
+          alert("Username already exists or inconsistent credentials");
         }
     };
 

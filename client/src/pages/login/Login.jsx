@@ -25,6 +25,7 @@ export default function Login() {
           setError_msg(err.error);
           setIserror(true);
           console.log(error_msg);
+          alert("Incorrect Username or password")
         }
     };
   return (
