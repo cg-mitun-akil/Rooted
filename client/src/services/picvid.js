@@ -21,7 +21,7 @@ export const deletePicture = async(eventid, publicUrl) => {
   const config = {
     headers: { Authorization: getToken() },
   };
-  const response = await axios.delete(baseUrl + 'pic', {eventid, publicUrl}, config);
+  const response = await axios.post(baseUrl + 'picdel', {eventid, publicUrl}, config);
   return response.data;
 }
 
@@ -37,6 +37,6 @@ export const deleteVideo = async(eventid, publicUrl) => {
   const config = {
     headers: { Authorization: getToken() },
   };
-  const response = await axios.delete(baseUrl + 'vid', {eventid, publicUrl}, config);
+  const response = await axios.post(baseUrl + 'viddel', {eventid, publicUrl}, config);
   return response.data;
 }

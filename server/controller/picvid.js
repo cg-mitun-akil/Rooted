@@ -97,7 +97,7 @@ picvidRouter.post('/pic', (req, res) => {
   });
 });
 
-picvidRouter.delete('/pic', (req, res) => {
+picvidRouter.post('/picdel', (req, res) => {
   if(!req.isAuthenticated)
     return res.status(401).json({ error: 'User not logged in.' });
   const username = req.user.username;
@@ -188,7 +188,7 @@ picvidRouter.post('/vid', (req, res) => {
   });
 });
 
-picvidRouter.delete('/vid', (req, res) => {
+picvidRouter.post('/viddel', (req, res) => {
   if(!req.isAuthenticated)
     return res.status(401).json({ error: 'User not logged in.' });
   const username = req.user.username;

@@ -19,6 +19,6 @@ export const deleteBooking = async (eventid, dateBooked) => {
   const config = {
     headers: { Authorization: getToken() },
   }
-  const response = await axios.delete(baseUrl, { eventid, dateBooked }, config);
+  const response = await axios.post(baseUrl+'del/', { eventid, dateBooked }, config);
   return response.data;
 };
