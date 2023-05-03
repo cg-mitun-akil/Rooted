@@ -54,6 +54,7 @@ export const addEvent = async ({ title, eventType, nativeLocation, nativeLanguag
 //may be overwritten by NULL values
 export const editCurrEvent = async ({ eventid, title, eventType, nativeLocation, nativeLanguage, 
   description, contactNumber, contactCountryCode, contactEmail }) => {
+    console.log(title);
   const newEvent = { eventid, title, eventType, nativeLocation, nativeLanguage, description,
     contactNumber, contactCountryCode, contactEmail };
   const config = {

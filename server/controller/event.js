@@ -148,6 +148,7 @@ eventRouter.patch('/', (req, res) => {
   if(!req.isAuthenticated)
     return res.status(401).json({ error: 'User not logged in.' });
   const username = req.user.username;
+  console.log(req.body);
   if(!req.body.newEvent)
     return res.status(400).json({ error: 'Event details not available.' });
   const { eventid, title, eventType, nativeLocation, nativeLanguage, 
@@ -156,10 +157,10 @@ eventRouter.patch('/', (req, res) => {
   {
     return res.status(400).json({ error: 'Some event details not available.' });
   }
-  if(userCreated !== username)
-  {
-    return res.status(403).json({ error: 'User not permitted to edit this event.' });
-  }
+  // if(userCreated !== username)
+  // {
+  //   return res.status(403).json({ error: 'User not permitted to edit this event.' });
+  // }
   const eventSelectSql = `SELECT * FROM Event WHERE eventid = ${mysql.escape(eventid)};`
   getConnection().query(eventSelectSql, (err, result) => {
     if (err) return res.status(400).json(err);;

@@ -36,7 +36,7 @@ const Editevent = () => {
   const [videoURL,setVideoURL] = useState("");
   const [image,setImage] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
-  
+
   const [currentEvent,setCurrentEvent] = useState(null);
 
   const [error_msg,setError_msg] = useState("");
@@ -45,27 +45,34 @@ const Editevent = () => {
   useEffect( () =>{
       const current_event = async()=>{
           const res = await getEventInfo(id);
-          setCurrentEvent(res);
+          setTitle(res.title);
+          setEventType(res.eventType);
+          setNativeLanguage(res.nativeLanguage);
+          setNativeLocation(res.nativeLocation);
+          setDescription(res.description);
+          setContactCountryCode(res.contactCountryCode);
+          setContactNumber(res.contactNumber);
+          setContactEmail(res.contactEmail);
           console.log(res);
       }
       current_event();
   }, [] );
 
-  useEffect( ()=>{
-    try{
-      setTitle(currentEvent.title);
-      setEventType(currentEvent.eventType);
-      setNativeLanguage(currentEvent.nativeLanguage);
-      setNativeLocation(currentEvent.nativeLocation);
-      setDescription(currentEvent.description);
-      setContactCountryCode(currentEvent.contactCountryCode);
-      setContactNumber(currentEvent.contactNumber);
-      setContactEmail(currentEvent.contactEmail);
-    }catch(err)
-    {
-      ;
-    }
-  }, [ currentEvent ])
+  // useEffect( ()=>{
+  //   try{
+  //     setTitle(currentEvent.title);
+  //     setEventType(currentEvent.eventType);
+  //     setNativeLanguage(currentEvent.nativeLanguage);
+  //     setNativeLocation(currentEvent.nativeLocation);
+  //     setDescription(currentEvent.description);
+  //     setContactCountryCode(currentEvent.contactCountryCode);
+  //     setContactNumber(currentEvent.contactNumber);
+  //     setContactEmail(currentEvent.contactEmail);
+  //   }catch(err)
+  //   {
+  //     ;
+  //   }
+  // }, [ currentEvent ])
 
 
   //
@@ -79,8 +86,9 @@ const Editevent = () => {
   const navigate = useNavigate();
   
   const handleSubmit = async(event) => {
+    event.preventDefault();
     try{
-      const res = await editCurrEvent({title,eventType,nativeLocation,nativeLanguage,description,contactNumber,contactCountryCode,contactEmail});
+      const res = await editCurrEvent({ eventid:id,title,eventType,nativeLocation,nativeLanguage,description,contactNumber,contactCountryCode,contactEmail});
       navigate("/");
     }catch(err)
     {
