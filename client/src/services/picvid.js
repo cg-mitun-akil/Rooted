@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getToken } from './user';
-const baseUrl = process.env.SERVER_URL + '/api/v1/picvid/';
+const baseUrl = process.env.REACT_APP_SERVER_URL + '/api/v1/picvid/';
 
 export const addPicture = async(eventid, picture) => {
   const config = {
@@ -17,10 +17,11 @@ export const addPicture = async(eventid, picture) => {
 }
 
 export const deletePicture = async(eventid, publicUrl) => {
+  console.log(publicUrl,eventid);
   const config = {
     headers: { Authorization: getToken() },
   };
-  const response = await axios.post(baseUrl + 'pic', {eventid, publicUrl}, config);
+  const response = await axios.delete(baseUrl + 'pic', {eventid, publicUrl}, config);
   return response.data;
 }
 

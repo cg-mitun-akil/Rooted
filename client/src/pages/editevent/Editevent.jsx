@@ -19,6 +19,7 @@ import { useParams } from 'react-router-dom';
 import { getEventInfo } from "../../services/event";
 import { useNavigate } from "react-router-dom";
 import { editCurrEvent } from "../../services/event";
+import { addPicture, addVideo, deletePicture } from "../../services/picvid";
 
 const Editevent = () => {
   const { id } = useParams();
@@ -89,7 +90,6 @@ const Editevent = () => {
     event.preventDefault();
     try{
       const res = await editCurrEvent({ eventid:id,title,eventType,nativeLocation,nativeLanguage,description,contactNumber,contactCountryCode,contactEmail});
-      navigate("/");
     }catch(err)
     {
       setError_msg(err.error);
@@ -107,14 +107,73 @@ const Editevent = () => {
     }
   };
 
-  const handleUploadImage= (event) =>  {
+  const handleUploadImage= async(event) =>  {
     event.preventDefault();
+    try{
+      const res = await addPicture(id,image);
+    }catch(err)
+    {
+      setError_msg(err.error);
+      setIserror(true);
+      console.log(error_msg);
+    }
     setImage(null);
     //upload video
   }
 
-  const handleUploadVideo = (event) =>  {
+  const [piclist,setPiclist] = useState();
+
+  const handleDeleteImages=async(event)=>{
+    event.preventDefault(); 
+    const current_event = async()=>{
+        const res = await getEventInfo(id);
+        setPiclist(res.pictures);
+        console.log(res);
+     } 
+    current_event();
+    piclist.map( (picid) =>{
+      deletePicture(id,picid);
+    })
+  }
+
+  const handleDeleteVideos=async(event)=>{
+    event.preventDefault(); 
+    const current_event = async()=>{
+        const res = await getEventInfo(id);
+        setPiclist(res.videos);
+        console.log(res);
+     } 
+    current_event();
+    piclist.map( (picid) =>{
+      deletePicture(id,picid);
+    })
+  }
+
+  const convertLinkToEmbedId = (url) => {
+    const videoIdRegex = /(?:\?v=|\/embed\/|\/watch\?v=)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(videoIdRegex);
+
+    if (match) {
+      const videoId = match[1];
+      const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+      return embedUrl;
+    } else {
+      console.error(`Invalid YouTube URL: ${url}`);
+      return null;
+    }
+  };
+
+  const handleUploadVideo = async(event) =>  {
     event.preventDefault();
+    try{
+      const video_id = convertLinkToEmbedId(videoURL);
+      const res = await addVideo(id, video_id );
+    }catch(err)
+    {
+      setError_msg(err.error);
+      setIserror(true);
+      console.log(error_msg);
+    }
     setVideoURL("");
     //upload video
   }
@@ -229,7 +288,7 @@ const Editevent = () => {
             <button type="submit" onClick={handleUploadImage}>Upload Image</button>
         </Grid>
         <Grid item xs={5}>
-            <button type="submit" onClick={handleUploadVideo}>Delete All Images</button>
+            <button type="submit" onClick={handleDeleteImages}>Delete All Images</button>
             </Grid>
         <Grid item xs={10}>
           <TextField fullWidth label="YouTube URL" value={videoURL} onChange={(e) => setVideoURL(e.target.value)} multiline />
@@ -239,7 +298,7 @@ const Editevent = () => {
         </Grid>
         
         <Grid item xs={5}>
-            <button type="submit" onClick={handleUploadVideo}>Delete All Videos</button>
+            <button type="submit" onClick={handleDeleteVideos}>Delete All Videos</button>
         </Grid>
         <Grid item xs={12}>
             <Calendar highlightedDays={dates} />
