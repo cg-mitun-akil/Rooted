@@ -5,7 +5,7 @@ const baseUrl = url + '/api/v1/user/';
 let token = null;
 
 export const setToken = (newToken) => {
-  token = `bearer ${newToken}`;
+  token = `Bearer ${newToken}`;
 };
 
 export const getToken = () => {

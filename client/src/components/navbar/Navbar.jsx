@@ -50,7 +50,7 @@ const Navbar = (props) => {
                         console.log(e.target.value)
                       }}
                   >
-                    <option>Event Type</option>
+                    <option value="" >Event Type</option>
                     <option value="dance">Dance</option>
                     <option value="drama">Drama</option>
                     <option value="musical">Musical</option>

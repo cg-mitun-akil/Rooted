@@ -15,8 +15,10 @@ import StarIcon from '@mui/icons-material/Star';
 import { Link } from "react-router-dom";
 import Commentbox from "../../components/commentbox/Commentbox";
 import { Grid } from "@mui/material";
+import { useParams } from 'react-router-dom';
 
 const Event = (props) => {
+  const { id } = useParams();
   const [slideNumber1, setSlideNumber1] = useState(0);
   const [open1, setOpen1] = useState(false);
 
@@ -172,6 +174,7 @@ const Event = (props) => {
     <div className="event">
       <Link to="/" className="link">
         <img src={Logo} className="logo"/>
+        <h1>{id}</h1>
       </Link>
       <h1 className="hotelTitle">Event Title</h1>
       { isUser ? 

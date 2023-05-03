@@ -29,8 +29,7 @@ const Addevent = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try{
-      const res = await addEvent(title,eventType,nativeLocation,nativeLanguage,description,contactNumber,contactCountryCode,contactEmail);
-      localStorage.setItem("rooted-token",res.token);
+      const res = await addEvent({title,eventType,nativeLocation,nativeLanguage,description,contactNumber,contactCountryCode,contactEmail});
       navigate("/");
     }catch(err)
     {
@@ -38,8 +37,6 @@ const Addevent = () => {
       setIserror(true);
       console.log(error_msg);
     }
-    const res = 
-    console.log(res.error);
     // TODO: handle form submission
   };
 
@@ -119,6 +116,7 @@ const Addevent = () => {
         </Grid>
         <Grid item xs={12}>
             <button type="submit">Create Event</button>
+            {iserror&&<h1>{error_msg}</h1>}
         </Grid>
       </Grid>
       </div>
@@ -146,9 +144,9 @@ const countries = [
   {
     code: 'AG',
     label: 'Antigua and Barbuda',
-    phone: '1-268',
+    phone: '1268',
   },
-  { code: 'AI', label: 'Anguilla', phone: '1-264' },
+  { code: 'AI', label: 'Anguilla', phone: '1264' },
   { code: 'AL', label: 'Albania', phone: '355' },
   { code: 'AM', label: 'Armenia', phone: '374' },
   { code: 'AO', label: 'Angola', phone: '244' },
@@ -170,7 +168,7 @@ const countries = [
     label: 'Bosnia and Herzegovina',
     phone: '387',
   },
-  { code: 'BB', label: 'Barbados', phone: '1-246' },
+  { code: 'BB', label: 'Barbados', phone: '1246' },
   { code: 'BD', label: 'Bangladesh', phone: '880' },
   { code: 'BE', label: 'Belgium', phone: '32' },
   { code: 'BF', label: 'Burkina Faso', phone: '226' },
@@ -179,11 +177,11 @@ const countries = [
   { code: 'BI', label: 'Burundi', phone: '257' },
   { code: 'BJ', label: 'Benin', phone: '229' },
   { code: 'BL', label: 'Saint Barthelemy', phone: '590' },
-  { code: 'BM', label: 'Bermuda', phone: '1-441' },
+  { code: 'BM', label: 'Bermuda', phone: '1441' },
   { code: 'BN', label: 'Brunei Darussalam', phone: '673' },
   { code: 'BO', label: 'Bolivia', phone: '591' },
   { code: 'BR', label: 'Brazil', phone: '55' },
-  { code: 'BS', label: 'Bahamas', phone: '1-242' },
+  { code: 'BS', label: 'Bahamas', phone: '1242' },
   { code: 'BT', label: 'Bhutan', phone: '975' },
   { code: 'BV', label: 'Bouvet Island', phone: '47' },
   { code: 'BW', label: 'Botswana', phone: '267' },
@@ -272,7 +270,7 @@ const countries = [
   },
   { code: 'GA', label: 'Gabon', phone: '241' },
   { code: 'GB', label: 'United Kingdom', phone: '44' },
-  { code: 'GD', label: 'Grenada', phone: '1-473' },
+  { code: 'GD', label: 'Grenada', phone: '1473' },
   { code: 'GE', label: 'Georgia', phone: '995' },
   { code: 'GF', label: 'French Guiana', phone: '594' },
   { code: 'GG', label: 'Guernsey', phone: '44' },

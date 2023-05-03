@@ -15,6 +15,7 @@ import {
 } from "react-router-dom";
 import { setToken } from "./services/user";
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 function App() {
   useEffect(()=>{
@@ -34,7 +35,7 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="event" element={<Event />} />
+        <Route path="event/:id" element={<Event />} />
         <Route path="addevent" element={<Addevent/> } />
         <Route path="editevent" element={<Editevent/> } />
       </Routes>

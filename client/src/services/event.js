@@ -36,7 +36,7 @@ export const getEventInfo = async (eventid) => {
 
 export const addEvent = async ({ title, eventType, nativeLocation, nativeLanguage, 
   description, contactNumber, contactCountryCode, contactEmail }) => {
-    console.log(getToken());
+    console.log(getToken(),title);
   const newEvent = { title, eventType, nativeLocation, nativeLanguage, description,
     contactNumber, contactCountryCode, contactEmail };
   const config = {

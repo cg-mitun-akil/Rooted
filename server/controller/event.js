@@ -12,7 +12,7 @@ const eventRouter = express.Router();
 eventRouter.get('/multiple/', (req, res) => {
 
   let eventSelectSql = `
-    SELECT e.eventid, e.title, e.eventType, e.rating, GROUP_CONCAT(p.url) AS pictures
+    SELECT e.eventid, e.title, e.eventType, e.rating, e.description, e.nativeLanguage, GROUP_CONCAT(p.url) AS pictures
     FROM Event e
     LEFT JOIN Picture p ON e.eventid = p.eventid`;
   let queryLength = Object.keys(req.query).length;

@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS Event(
 	contactNumber VARCHAR(15) NOT NULL,
 	contactCountryCode INT,
 	contactEmail VARCHAR(50) NOT NULL,
-  rating DECIMAL(4,2),
+  rating DECIMAL(4,2) DEFAULT 0.0,
   FOREIGN KEY (userCreated) REFERENCES User(username)
 );
 `

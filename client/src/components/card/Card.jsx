@@ -10,14 +10,15 @@ const Card = (props) => {
     <div class="projcard-container">
     <div class="projcard projcard-blue">
       <div class="projcard-innerbox">
-        <img class="projcard-img" src={props.image} />
+        <img class="projcard-img" src={ props.images ? props.images[0] : "https://cdn.shopify.com/s/files/1/0248/0891/5029/files/RLSS_-_RAP_Artwork.jpg?v=1658371969&width=550"}/>
         <div class="projcard-textbox">
           <div class="projcard-title">{props.name}</div>
           <div class="projcard-bar"></div>
-          <div class="projcard-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+          <div class="projcard-description">{props.desc}</div>
           <div class="projcard-tagbox">
             <span class="projcard-tag">{props.language}</span>
-            <span class="projcard-tag">RMDB {props.rating}</span>
+            <span class="projcard-tag">{props.type}</span>
+            <span class="projcard-tag"><b>RMDB</b> {props.rating}</span>
           </div>
         </div>
       </div>
