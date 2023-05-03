@@ -20,10 +20,13 @@ import { getEventInfo } from "../../services/event";
 import { useNavigate } from "react-router-dom";
 import { editCurrEvent } from "../../services/event";
 import { addPicture, addVideo, deletePicture, deleteVideo } from "../../services/picvid";
+import { addBooking, deleteBooking, getBookings } from "../../services/booking";
+import { setDate } from "date-fns";
 
 const Editevent = () => {
   const { id } = useParams();
-  const dates = [21,23];
+  const [dates,setDates] = useState([]);
+  const [eventdates,setEventdates] = useState([]);
   const [title, setTitle] = useState("");
   const [eventType, setEventType] = useState("");
   const [eventLocation, setEventLocation] = useState("");
@@ -42,6 +45,9 @@ const Editevent = () => {
 
   const [error_msg,setError_msg] = useState("");
   const [iserror,setIserror] = useState(false);
+
+  const [year,setYear] = useState(2023);
+  const [month,setMonth] = useState(4);
   
   useEffect( () =>{
       const current_event = async()=>{
@@ -57,7 +63,34 @@ const Editevent = () => {
           console.log(res);
       }
       current_event();
+      const event_dates = async()=>{
+        const res = await getBookings(id);
+        res.bookings.map( bookie => {
+          setEventdates( (old) => [...old,bookie.dateBooked.split("T")[0]])
+        })
+      }
+      event_dates();
   }, [] );
+
+
+  useEffect( ()=>{
+    setDates([]);
+    eventdates.map( (date)=>{
+      if( date.split("-")[0] == year && date.split("-")[1] == month )
+      {
+          setDates((oldArray) => [...oldArray, parseInt(date.split("-")[2]) ]);
+      }
+    })
+  }, [eventdates])
+
+  const renderDates=()=>{
+    eventdates.map( (date)=>{
+      if( date.split("-")[0] == 2023 && date.split("-")[1] == 4 )
+      {
+          setDates((oldArray) => [...oldArray, parseInt(date.split("-")[2]) ]);
+      }
+    })
+  }
 
   // useEffect( ()=>{
   //   try{
@@ -143,13 +176,23 @@ const Editevent = () => {
     const current_event = async()=>{
         const res = await getEventInfo(id);
         setVidlist(res.videos);
-        console.log(res);
      } 
     current_event();
     vidlist.map( (vidid) =>{
       deleteVideo(id,vidid);
     })
   }
+
+  useEffect(()=>{
+    try{
+      vidlist.map( (vidid) =>{
+        deleteVideo(id,vidid);
+      })
+    }catch(err)
+    {
+      ;
+    }
+  },[vidlist]);
 
   const convertLinkToEmbedId = (url) => {
     const videoIdRegex = /(?:\?v=|\/embed\/|\/watch\?v=)([a-zA-Z0-9_-]{11})/;
@@ -182,14 +225,36 @@ const Editevent = () => {
 
   const handleAddDate = (event) =>  {
     event.preventDefault();
-    console.log(selectedDate);
-    setSelectedDate(null);
+    try{
+      addBooking(id,`${selectedDate.year()}-${selectedDate.month()+1}-${selectedDate.date()+1}`);
+      console.log("added");
+      setEventdates(oldArray => [...oldArray, `${selectedDate.year()}-${selectedDate.month()+1}-${selectedDate.date()}` ])
+    }catch(err)
+    {
+      console.log(err);
+    }
     //upload video
   }
 
   const handleDeleteDate = (event) =>  {
     event.preventDefault();
-    setSelectedDate(null);
+    try{ 
+      deleteBooking(id,`${selectedDate.year()}-${selectedDate.month()+1}-${selectedDate.date()+1}`)
+      const ev_dat = eventdates;
+      setEventdates([]);
+      ev_dat.map((dat)=>{
+        // console.log(dat.split("-")[0],selectedDate.year() );
+        // console.log(selectedDate.month()+1 ,  dat.split("-")[1])
+        // console.log(dat.split("-")[2] , selectedDate.date())
+        if(!(dat.split("-")[0] ==  selectedDate.year() && selectedDate.month()+1 == dat.split("-")[1] && dat.split("-")[2] == selectedDate.date() ))
+          setEventdates( old => [...old,dat] );
+      })
+      console.log(eventdates);
+      console.log(dates);
+    }catch(err)
+    {
+      ;
+    }
     //upload video
   }
 
@@ -303,7 +368,7 @@ const Editevent = () => {
             <button type="submit" onClick={handleDeleteVideos}>Delete All Videos</button>
         </Grid>
         <Grid item xs={12}>
-            <Calendar highlightedDays={dates} />
+            <Calendar month = {month} year = {year} setMonth = {setMonth} setYear = {setYear} highlightedDays={dates} eventdates={eventdates} setEventdates={setEventdates} />
         </Grid>
         <Grid item xs={8}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>

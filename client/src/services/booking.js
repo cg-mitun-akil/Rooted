@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getToken } from './user';
-const baseUrl = process.env.SERVER_URL + '/api/v1/booking/';
+const baseUrl = process.env.REACT_APP_SERVER_URL + '/api/v1/booking/';
 
 export const getBookings = async (eventid) => {
   const response = await axios.get(baseUrl + eventid);

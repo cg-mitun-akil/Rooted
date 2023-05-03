@@ -60,7 +60,14 @@ ServerDay.propTypes = {
 export default function Calendar( props ) {
   const requestAbortController = React.useRef(null);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [highlightedDays, setHighlightedDays] = React.useState(props.highlightedDays);
+  const [highlightedDays, setHighlightedDays] = React.useState([]);
+  
+  React.useEffect(()=>{
+    //handleMonthChange();
+    props.setYear(2023);
+    props.setMonth(5);
+
+  },[])
 
   const fetchHighlightedDays = (date) => {
     const controller = new AbortController();
@@ -82,16 +89,33 @@ export default function Calendar( props ) {
   };
 
   const handleMonthChange = (date) => {
-    if (requestAbortController.current) {
-      // make sure that you are aborting useless requests
-      // because it is possible to switch between months pretty quickly
-      requestAbortController.current.abort();
-    }
-
-    setIsLoading(true);
-    setHighlightedDays([]);
-    fetchHighlightedDays(date);  //fetch dates later
+    // if (requestAbortController.current) {
+    //   // make sure that you are aborting useless requests
+    //   // because it is possible to switch between months pretty quickly
+    //   requestAbortController.current.abort();
+    // }
+    props.setYear(date.year());
+    props.setMonth(date.month()+1);
+    console.log(date);
+    // setIsLoading(true);
+    // setHighlightedDays([]);
+    // fetchHighlightedDays(date);  //fetch dates later
   };
+
+  React.useEffect( ()=>{
+    console.log("hello");
+    setIsLoading(true);
+    console.log(props.eventdates);
+    setHighlightedDays([]);
+    props.eventdates.map( (date)=>{
+      if( date.split("-")[0] == props.year && date.split("-")[1] == props.month )
+      {
+          setHighlightedDays((oldArray) => [...oldArray, parseInt(date.split("-")[2]) ]);
+      }
+    })
+    console.log('hi',highlightedDays);
+    setIsLoading(false);
+  },[props.year,props.month,props.eventdates]);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
