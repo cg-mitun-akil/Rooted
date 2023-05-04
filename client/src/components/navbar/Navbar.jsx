@@ -88,6 +88,7 @@ const Navbar = (props) => {
                     <option value="drama">Drama</option>
                     <option value="musical">Musical</option>
                     <option value="streetPlay">Street Play</option>
+                    <option value="painting">Painting</option>
             </select>
             <select
                       name="Native Language"
@@ -97,7 +98,7 @@ const Navbar = (props) => {
                         console.log(e.target.value)
                       }}
                   >
-                    <option>Native</option>
+                    <option value="" >Native</option>
                     <option value="odiya">Odiya</option>
                     <option value="assamese">Assamese</option>
                     <option value="tamil">Tamil</option>
