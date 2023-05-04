@@ -251,11 +251,26 @@ const Event = (props) => {
     }
   }, [comment] );
 
+  function editIfBetween(value, lowerBound, upperBound) {
+    if (value >= lowerBound && value <= upperBound) {
+      // Value is between lowerBound and upperBound, no edit needed
+      return value;
+    } else {
+      // Value is outside the range, edit it to be the closest bound
+      if (value < lowerBound) {
+        return lowerBound;
+      } else {
+        return upperBound;
+      }
+    }
+  }
+  
+
   const handleClick = () => {
     const input = prompt('Rate us:');
     const comment = prompt('Comment');
     if (input) {
-      setUserRating(parseInt(input));
+      setUserRating(editIfBetween(parseInt(input),0,5));
       setComment(comment);
     }
   };
