@@ -15,9 +15,9 @@ const reviewInsertTrigger = `
   END;
 `;
 
-const reviewDeleteTrigger = `
-  CREATE TRIGGER IF NOT EXISTS UPDATE_EVENT_RATING_DELETE
-  AFTER DELETE ON Review
+const reviewUpdateTrigger = `
+  CREATE TRIGGER IF NOT EXISTS UPDATE_EVENT_RATING_UPDATE
+  AFTER UPDATE ON Review
   FOR EACH ROW
   BEGIN
     UPDATE Event
@@ -35,9 +35,9 @@ const createTriggers = () => {
     if (err) throw err;
     console.log("Review Insert Trigger Created or Already Exists");
   });
-  getConnection().query(reviewDeleteTrigger, (err, result) => {
+  getConnection().query(reviewUpdateTrigger, (err, result) => {
     if (err) throw err;
-    console.log("Review Delete Trigger Created or Already Exists");
+    console.log("Review Update Trigger Created or Already Exists");
   });
 }
 
