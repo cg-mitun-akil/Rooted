@@ -43,14 +43,14 @@ eventRouter.get('/multiple/', (req, res) => {
   }
   if(req.query.nativeLocation)
   {
-    eventSelectSql += ` e.nativeLocation <= ${mysql.escape(req.query.nativeLocation)}`;
+    eventSelectSql += ` e.nativeLocation = ${mysql.escape(req.query.nativeLocation)}`;
     queryLength --;
     if(queryLength > 0)
       eventSelectSql += ` AND`;
   }
   if(req.query.nativeLanguage)
   {
-    eventSelectSql += ` e.nativeLanguage <= ${mysql.escape(req.query.nativeLanguage)}`;
+    eventSelectSql += ` LOWER(e.nativeLanguage) = ${mysql.escape(req.query.nativeLanguage.toLowerCase())}`;
     queryLength --;
     if(queryLength > 0)
       eventSelectSql += ` AND`;
