@@ -138,7 +138,7 @@ const Editevent = () => {
     event.preventDefault();
     try{
       const res = await editCurrEvent({ eventid:id,title,eventType,nativeLocation,nativeLanguage,description,contactNumber,contactCountryCode,contactEmail});
-      alert("Changes Saved");
+      navigate("../");
     }catch(err)
     {
       setError_msg(err.error);
@@ -146,6 +146,7 @@ const Editevent = () => {
       console.log(error_msg);
       alert("Inconsistent Data or Unauthorised Access");
     }
+    
     //editEvent = async ({ eventid, title, eventType, nativeLocation, nativeLanguage, 
       //description, contactNumber, contactCountryCode, contactEmail })
     // TODO: handle form submission
@@ -185,7 +186,7 @@ const Editevent = () => {
     piclist.map( (picid) =>{
       deletePicture(id,picid);
     })
-    alert("Deleted All images");
+    //alert("Deleted All images");
   }
   
   const [vidlist,setVidlist] = useState([]);

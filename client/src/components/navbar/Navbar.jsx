@@ -98,7 +98,10 @@ const Navbar = (props) => {
                       }}
                   >
                     <option>Native</option>
+                    <option value="odiya">Odiya</option>
+                    <option value="assamese">Assamese</option>
                     <option value="tamil">Tamil</option>
+                    <option value="gujarathi">Gujarathi</option>
                     <option value="telugu">Telugu</option>
                     <option value="malayalam">Malayalam</option>
                     <option value="kannada">Kannada</option>
@@ -129,14 +132,13 @@ const Navbar = (props) => {
                         props.setMaxRating(e.target.value)
                         console.log(e.target.value)
                       }}
-                      value={5}
                   >
                     <option value={0}>0.0</option>
                     <option value={1}>1.0</option>
                     <option value={2}>2.0</option>
                     <option value={3}>3.0</option>
                     <option value={4}>4.0</option>
-                    <option value={5}>5.0</option>
+                    <option value={5} selected >5.0</option>
             </select>
 
         </div>
